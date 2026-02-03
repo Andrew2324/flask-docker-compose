@@ -32,5 +32,5 @@ jobs:
           file: docker/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/flask-docker-compose:latest
-            ghcr.io/${{ github.repository_owner }}/flask-docker-compose:${{ github.sha }}
+            ghcr.io/andrew2324/flask-docker-compose:latest
+            ghcr.io/andrew2324/flask-docker-compose:${{ github.sha }}
