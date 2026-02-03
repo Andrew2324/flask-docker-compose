@@ -32,10 +32,6 @@ This project intentionally uses **port 5000 everywhere**:
 - The API connects to a Postgres container over the Docker Compose network
 - Postgres persists data in a Docker volume
 
-mermaid
-flowchart LR
-  U[User or curl or browser] -->|HTTP 5000| API[Flask API - (gunicorn)]
-  API -->|SQL| DB[(Postgres)]
 
 ASCII diagrams always render.
 
@@ -55,7 +51,7 @@ User / curl / browser
 +--------------------+
 | Postgres 16        |
 +--------------------+
-
+```
 ---
 
 ## Prerequisites
