@@ -23,12 +23,38 @@ This project intentionally uses **port 5000 everywhere**:
 - Docker Compose publishes `5000:5000` for local access
 
 ## Architecture
+
+
+**High-level flow:**
+- Client sends HTTP requests to the Flask API on port 5000
+- The API runs in a Docker container using Gunicorn
+- The API connects to a Postgres container over the Docker Compose network
+- Postgres persists data in a Docker volume
+
 ```mermaid
 flowchart LR
   U[User / curl / browser] -->|HTTP :5000| API[Flask API (gunicorn)]
   API -->|SQL| DB[(Postgres 16)]
-
 ```
+
+ASCII diagrams always render.
+
+```md
+
+User / curl / browser
+        |
+        | HTTP :5000
+        v
++--------------------+
+| Flask API (Docker) |
+| Gunicorn           |
++--------------------+
+        |
+        | SQL
+        v
++--------------------+
+| Postgres 16        |
++--------------------+
 ---
 
 ## Prerequisites
