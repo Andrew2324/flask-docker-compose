@@ -1,4 +1,4 @@
-# Flask API in Docker + Docker Compose (with Postgres) — Port 5000
+# Flask API in Docker + Docker Compose (with Postgres)
 
 This project demonstrates containerizing a Python Flask API using a production friendly Dockerfile and running a multi-service local environment with Docker Compose (**API + Postgres**). It also documents real-world troubleshooting and failure scenarios.
 
