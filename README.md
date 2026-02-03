@@ -10,7 +10,7 @@ This project uses GitHub Actions to automatically build and publish the Docker i
 ```bash
 ghcr.io/andrew2324/flask-docker-compose:latest
 
-![alt text](image.png)
+![alt text](images/image.png)
 ```
 ## Why this exists
 This repo demonstrates core skills:
