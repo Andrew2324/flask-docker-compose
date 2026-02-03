@@ -21,6 +21,7 @@ This repo demonstrates core skills:
 This project intentionally uses **port 5000 everywhere**:
 - The API listens on `:5000` inside the container
 - Docker Compose publishes `5000:5000` for local access
+---
 
 ## Architecture
 
@@ -34,7 +35,8 @@ This project intentionally uses **port 5000 everywhere**:
 ```mermaid
 flowchart LR
   U[User / curl / browser] -->|HTTP :5000| API[Flask API (gunicorn)]
-  API -->|SQL| DB[(Postgres 16)]
+  API -->|SQL| DB[(Postgres)]
+
 ```
 
 ASCII diagrams always render.
@@ -55,6 +57,7 @@ User / curl / browser
 +--------------------+
 | Postgres 16        |
 +--------------------+
+
 ---
 
 ## Prerequisites
@@ -67,13 +70,18 @@ Quick start (local)
 cp .env.example .env
 docker compose up --build -d
 
+---
 # Verify
 docker compose ps
 curl http://localhost:5000/health
 curl http://localhost:5000/
 
+---
+
 # Logs
 docker compose logs -f api
+
+---
 
 # Stop
 docker compose down
@@ -120,6 +128,7 @@ Fix: open inbound port 5000 or put a reverse proxy in front (recommended for rea
 
 ## What I learned
 This project gave me hands on experience running a containerized application from to to bottom. I built and deployed a Flask API in a production style Docker container using Gunicorn, orchestrated the API and Postgres with Docker Compose, and added health checks and startup logic so the service waits for the database and initializes its schema before serving traffic. I worked through real operational issues like database authentication mismatches, environment variable misconfigurations, and connectivity problems, and documented repeatable troubleshooting steps. The entire stack runs consistently on port 5000.
+
 ---
 
 ## Live verification (real output)
