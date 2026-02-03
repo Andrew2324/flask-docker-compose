@@ -2,6 +2,16 @@
 
 This project demonstrates containerizing a Python Flask API using a production friendly Dockerfile and running a multi-service local environment with Docker Compose (**API + Postgres**). It also documents real-world troubleshooting and failure scenarios.
 
+## CI/CD – Container Build & Publish
+
+This project uses GitHub Actions to automatically build and publish the Docker image to GitHub Container Registry (GHCR) on every push to `main`.
+
+### Image
+```bash
+ghcr.io/andrew2324/flask-docker-compose:latest
+
+![alt text](image.png)
+```
 ## Why this exists
 This repo demonstrates core skills:
 
