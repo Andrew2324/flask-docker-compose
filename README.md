@@ -37,8 +37,6 @@ flowchart LR
   U[User / curl / browser] -->|HTTP :5000| API[Flask API (gunicorn)]
   API -->|SQL| DB[(Postgres)]
 
-```
-
 ASCII diagrams always render.
 
 ```md
