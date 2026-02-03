@@ -27,10 +27,11 @@ This project intentionally uses **port 5000 everywhere**:
 flowchart LR
   U[User / curl / browser] -->|HTTP :5000| API[Flask API (gunicorn)]
   API -->|SQL| DB[(Postgres 16)]
+
 ```
 ---
 
-Prerequisites
+## Prerequisites
 
 Docker Desktop (Windows/Mac) or Docker Engine (Linux)
 
@@ -97,17 +98,20 @@ This project gave me hands on experience running a containerized application fro
 
 ## Live verification (real output)
 
-Start the stack
+**Start the stack**
+
 docker compose up --build -d
 
-Output:
+**Output:**
+
 [+] up 4/4
  ✔ Image flask-docker-compose-api       Built
  ✔ Network flask-docker-compose_default Created
  ✔ Container flask-docker-compose-db-1  Healthy
  ✔ Container flask-docker-compose-api-1 Created
 
-Confirm containers + ports
+**Confirm containers + ports**
+
 docker compose ps
 
 Output:
@@ -115,7 +119,8 @@ NAME                         IMAGE                      COMMAND               SE
 flask-docker-compose-api-1   flask-docker-compose-api   "/app/entrypoint.sh"  api       Up                         0.0.0.0:5000->5000/tcp
 flask-docker-compose-db-1    postgres:16                "docker-entrypoint…"  db        Up (healthy)              0.0.0.0:5432->5432/tcp
 
-Test endpoints
+**Test endpoints**
+
 curl http://localhost:5000/health
 curl http://localhost:5000/
 
