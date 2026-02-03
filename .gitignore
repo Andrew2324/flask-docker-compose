@@ -1,0 +1,49 @@
+# =========================
+# Environment / secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# Virtual environments
+# =========================
+venv/
+.venv/
+ENV/
+env/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS / Editor files
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# =========================
+# Docker
+# =========================
+# (Images/containers/volumes should never be committed)
+docker-data/
