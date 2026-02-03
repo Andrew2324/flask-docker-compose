@@ -36,6 +36,7 @@ This project intentionally uses **port 5000 everywhere**:
 flowchart LR
   U[User / curl / browser] -->|HTTP :5000| API[Flask API (gunicorn)]
   API -->|SQL| DB[(Postgres)]
+```
 
 ASCII diagrams always render.
 
