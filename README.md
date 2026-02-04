@@ -1,6 +1,6 @@
 # Flask API in Docker + Docker Compose (with Postgres)
 
-This project demonstrates containerizing a Python Flask API using a production friendly Dockerfile and running a multi-service local environment with Docker Compose (**API + Postgres**). It also documents real-world troubleshooting and failure scenarios.
+This project displays containerizing a Python Flask API using a production friendly Dockerfile and running a multi-service local environment with Docker Compose (**API + Postgres**). It also documents real-world troubleshooting and failure scenarios.
 
 ## CI/CD – Container Build & Publish
 
@@ -12,7 +12,7 @@ ghcr.io/andrew2324/flask-docker-compose:latest
 
 ```
 ## Why this exists
-This repo demonstrates core skills:
+This repo displays core skills:
 
 - Packaging an app into a repeatable container image (**Dockerfile**)
 - Running a realistic multi-service environment (**Docker Compose**)
@@ -46,20 +46,70 @@ ASCII diagrams always render.
 
 ```md
 
-User / curl / browser
-        |
-        | HTTP :5000
-        v
-+--------------------+
-| Flask API (Docker) |
-| Gunicorn           |
-+--------------------+
-        |
-        | SQL
-        v
-+--------------------+
-| Postgres 16        |
-+--------------------+
+Developer Laptop
++----------------------+
+| git commit / push    |
++----------+-----------+
+           |
+           v
+GitHub Repository
++----------------------+
+| main branch          |
++----------+-----------+
+           |
+           v
+GitHub Actions (CI)
++----------------------------------+
+| build Docker image                |
+| tag: latest + commit SHA          |
+| push image to GHCR                |
+| ghcr.io/andrew2324/flask-api      |
++----------------+-----------------+
+                 |
+                 v
+GitHub Container Registry (GHCR)
++----------------------------------+
+| ghcr.io/andrew2324/flask-api:tag  |
++----------------+-----------------+
+                 |
+                 v
+Local Machine (Docker Engine)
++----------------------------------+
+| docker compose pull               |
+| docker compose up -d              |
++----------------+-----------------+
+```
+
+Runtime flow (Docker Compose networking)
+
+```md
+                  HTTP :5000
++--------+    ------------------>    +---------------------------+
+| Client |                           | Local Host                |
++--------+                           | Docker Engine             |
+                                     | Port 5000 -> api:5000     |
+                                     +-------------+-------------+
+                                                   |
+                                                   v
+                                      +------------------------+
+                                      | api container          |
+                                      | Flask + Gunicorn       |
+                                      | listens on :5000       |
+                                      +-----------+------------+
+                                                  |
+                         Docker Compose network   |  postgresql://appuser@db:5432/appdb
+                               (service name)    v
+                                      +------------------------+
+                                      | db container           |
+                                      | Postgres :5432         |
+                                      +-----------+------------+
+                                                  |
+                                                  v
+                                      +------------------------+
+                                      | Docker Volume          |
+                                      | persistent pg data     |
+                                      +------------------------+
+
 ```
 ---
 
@@ -125,12 +175,12 @@ docker exec -it flask-docker-compose-db-1 psql -U appuser -d appdb -c "\dt"
 3) Works locally but not from another device
 
 Cause: firewall/security group doesn’t allow inbound 5000
-Fix: open inbound port 5000 or put a reverse proxy in front (recommended for real deployments)
+Fix: open inbound port 5000 or put a reverse proxy in front 
 
 ---
 
 ## What I learned
-This project gave me hands on experience running a containerized application from to to bottom. I built and deployed a Flask API in a production style Docker container using Gunicorn, orchestrated the API and Postgres with Docker Compose, and added health checks and startup logic so the service waits for the database and initializes its schema before serving traffic. I worked through real operational issues like database authentication mismatches, environment variable misconfigurations, and connectivity problems, and documented repeatable troubleshooting steps. The entire stack runs consistently on port 5000.
+This project gave me hands on experience running a containerized application from top to bottom. I built and deployed a Flask API in a production style Docker container using Gunicorn, setup the API and Postgres with Docker Compose, and added health checks and startup logic so the service waits for the database and initializes its plan before serving traffic. I worked through real operational issues like database authentication mismatches, environment variable misconfigurations, and connectivity problems, and documented repeatable troubleshooting steps. The entire stack runs consistently on port 5000.
 
 ---
 
